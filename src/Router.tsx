@@ -6,7 +6,7 @@ import Price from "./routes/Price";
 
 const router = createBrowserRouter([
     {
-        path: "/:coinId",
+        path: "/crypto_tracker/:coinId",
         element: <Coin/>,
         children: [
             {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "/",
+        path: "/crypto_tracker",
         element: <Coins/>,
     },
 ]);

@@ -206,10 +206,10 @@ function Coin() {
                     </Overview>
                     <Tabs>
                         <Tab isActive={chartMatch !== null}>
-                            <Link to={`/${coinId}/chart`}>Chart</Link>
+                            <Link to={`/crypto_tracker/${coinId}/chart`}>Chart</Link>
                         </Tab>
                         <Tab isActive={priceMatch !== null}>
-                            <Link to={`/${coinId}/price`}>Price</Link>
+                            <Link to={`/crypto_tracker/${coinId}/price`}>Price</Link>
                         </Tab>
                     </Tabs>
                     <Outlet context={{coinId}} />
