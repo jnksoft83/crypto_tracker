@@ -190,7 +190,7 @@ function Coin() {
                 </title>
             </Helmet>
             <Header>
-                <Button onClick={() => navigate("/crypto_tracker")}><img src="/crypto_tracker/images/free-icon-font-home-3917033.svg" title="홈"/></Button>
+                <Button onClick={() => navigate("/crypto_tracker")}><img src="/crypto_tracker/images/free-icon-font-home-3917033.svg" alt="홈"/></Button>
 
                 <Title>
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}

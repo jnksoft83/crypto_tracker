@@ -3,7 +3,6 @@ import { RouterProvider } from "react-router-dom";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import router from "./Router";
 import { HelmetProvider } from "react-helmet-async";
-import styled from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import { useState } from "react";
 

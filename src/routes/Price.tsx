@@ -64,7 +64,7 @@ interface ChartProps {
 
 function Price() {
     const { coinId } = useOutletContext<ChartProps>();
-    const { isLoading: isLoading, data: tickersData } = useQuery<PriceData>(
+    const { isLoading: isTickersLoading, data: tickersData } = useQuery<PriceData>(
         ["tickers", coinId],
         () => fetchCoinTickers(coinId ? coinId : ""),
         {
@@ -73,7 +73,7 @@ function Price() {
     );
     return (
         <div>
-            {isLoading ? (
+            {isTickersLoading ? (
                 "Loading price..."
             ) : (
                 <>
