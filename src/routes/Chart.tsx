@@ -17,62 +17,56 @@ interface IHistorical {
 interface ChartProps {
     coinId: string;
 }
+
+interface CandlestickData {
+    x: String;
+    y: number[];
+}
+
 function Chart() {
     const { coinId } = useOutletContext<ChartProps>();
     const { isLoading, data } = useQuery<IHistorical[]>(
         ["ohlcv", coinId],
         () => fetchCoinHistory(coinId)
     );
+
+    const candlestickData: CandlestickData[] = [];
+    data?.forEach((item) => {
+        const candlestick : CandlestickData = {
+            x: item.time_close,
+            y: [item.open, item.high, item.low, item.close]
+        };
+        candlestickData.push(candlestick);
+    });
     return (
         <div>
             {isLoading ? (
                 "Loading chart..."
             ) : (
                 <ApexChart
-                    type="line"
+                    type="candlestick"
                     series={[
                         {
-                            name: "Price",
-                            data: data?.map((price) => price.close) ?? [],
-                        },
+                            data: candlestickData ?? [],
+                        }
                     ]}
-                    options={{
-                        theme: {
-                            mode: "dark",
-                        },
+                    options = {{
                         chart: {
-                            height: 300,
-                            width: 500,
-                            toolbar: {
-                                show: false,
-                            },
-                            background: "transparent",
+                            type: 'candlestick',
+                            height: 350
                         },
-                        grid: { show: false },
-                        stroke: {
-                            curve: "smooth",
-                            width: 4,
-                        },
-                        yaxis: {
-                            show: false,
+                        title: {
+                            text: 'CandleStick Chart',
+                            align: 'left'
                         },
                         xaxis: {
-                            axisBorder: { show: false },
-                            axisTicks: { show: false },
-                            labels: { show: false },
-                            type: "datetime",
-                            categories: data?.map((price) => price.time_close),
+                            type: 'datetime'
                         },
-                        fill: {
-                            type: "gradient",
-                            gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-                        },
-                        colors: ["#0fbcf9"],
-                        tooltip: {
-                            y: {
-                                formatter: (value) => `$${value.toFixed(2)}`,
-                            },
-                        },
+                        yaxis: {
+                            tooltip: {
+                                enabled: true
+                            }
+                        }
                     }}
                 />
             )}

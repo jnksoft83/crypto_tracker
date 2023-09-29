@@ -4,7 +4,8 @@ import {
     useParams,
     useMatch,
     Link,
-    Outlet
+    Outlet,
+    useNavigate
 } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
@@ -28,9 +29,9 @@ const Container = styled.div`
 
 const Header = styled.header`
   height: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  text-align: center;
+  width: 100%;
 `;
 
 const Overview = styled.div`
@@ -77,6 +78,23 @@ const Tab = styled.span<{ isActive: boolean }>`
   a {
     padding: 7px 0px;
     display: block;
+  }
+`;
+
+const Button = styled.a`
+  margin-top: 10px;
+  float: left;
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  display: block;
+  img {
+    display: block;
+    width: 29px;
+    height: 29px;
+    padding: 5px;
   }
 `;
 
@@ -147,6 +165,7 @@ interface PriceData {
 }
 
 function Coin() {
+    const navigate = useNavigate();
     const { coinId } = useParams<RouteParams>();
     const { state } = useLocation() as RouteState;
     const priceMatch = useMatch("/:coinId/price");
@@ -171,6 +190,8 @@ function Coin() {
                 </title>
             </Helmet>
             <Header>
+                <Button onClick={() => navigate("/crypto_tracker")}><img src="/crypto_tracker/images/free-icon-font-home-3917033.svg" title="홈"/></Button>
+
                 <Title>
                     {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
                 </Title>
